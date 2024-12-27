@@ -1,0 +1,12 @@
+#outer > div {
+    border: 1px solid black;
+    flex: 1 1 100px
+}
+
+#outer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 960px;
+    max-height: 960px;
+
+}
