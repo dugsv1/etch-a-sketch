@@ -13,7 +13,7 @@ function populateOuterContainer(rows=4, columns=4){
     for (let i = 0; i < rows; i++){
         for (let j = 0; j < columns; j++){
             const newDiv = document.createElement("div")
-            newDiv.setAttribute("class", `row${i} col${j}`)
+            newDiv.setAttribute("class", `row${i} col${j} grid`)
             newDiv.style.flex = `1 1 ${size}px`
             newDiv.style.height = `${size}px`
             outerDiv.appendChild(newDiv)
@@ -21,12 +21,26 @@ function populateOuterContainer(rows=4, columns=4){
     }
 
 }
+
 populateOuterContainer(6,6)
 function listen(){
     outerDiv.addEventListener("mouseover", (e) => {
-    console.log(e.target)
     let targetDiv = e.target
-    targetDiv.style.backgroundColor = targetDiv.style.backgroundColor === 'black' ? 'white' : 'black'
+    let color = window.getComputedStyle(targetDiv).backgroundColor
+    let colorStyle = e.target.style.backgroundColor
+    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    console.log(`#${randomColor}`)
+    console.log(`Window color: ${color}`)
+    console.log(`Style color: ${colorStyle}`)
+    if (
+        color === 'rgba(0, 0, 0, 0)' || 
+        color === 'rgb(255, 255, 255)'){
+        targetDiv.style.backgroundColor=`#${randomColor}`
+        targetDiv.style.opacity = 0.1
+    } else {
+        targetDiv.style.opacity = Math.min(1, parseFloat(targetDiv.style.opacity || 0) + 0.1)
+    }
+
 })
 }
 listen()
